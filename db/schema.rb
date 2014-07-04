@@ -11,6 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20140704205848) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "event_types", id: false, force: true do |t|
+    t.integer "api_id",      null: false
+    t.integer "primary_key"
+    t.string  "name"
+  end
+
+  create_table "markets", id: false, force: true do |t|
+    t.string  "api_id",        null: false
+    t.string  "name"
+    t.string  "market_type"
+    t.integer "event_type_id"
+  end
+
+  create_table "runners", id: false, force: true do |t|
+    t.integer "api_id",    null: false
+    t.string  "name"
+    t.string  "market_id"
+  end
+
+  add_foreign_key "markets", "event_types", name: "markets_event_type_id_fk", primary_key: "api_id"
+
+  add_foreign_key "runners", "markets", name: "runners_market_id_fk", primary_key: "api_id"
 
 end

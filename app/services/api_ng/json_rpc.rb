@@ -10,7 +10,7 @@ module ApiNg
       end
     end
 
-    def initialize(exchange, params={})
+    def initialize(exchange=:aus, params={})
       @exchange = (exchange == :uk) ? :uk : :aus #fall back on anything other than :uk
       self.params = params
     end
@@ -51,11 +51,11 @@ module ApiNg
     end
 
     def app_key
-      Thread.current[:app_key] or ENV['API_NG_BETFAIR_WEB_APP_KEY']
+     '5k4smWlICCN3xe9e'
     end
 
     def sso_id
-      ApiNg::Session.sso_id
+       @sso_id ||= ApiNg::Session.new.sso_id
     end
 
     def rpc_request
@@ -64,10 +64,6 @@ module ApiNg
 
     def uri
       self.send("#{@exchange}_uri")
-    end
-
-    def uk_uri
-      raise NotImplementedError, "Subclasses of #{self.class.to_s} must include ApiNg::SportsURI or ApiNg::AccountURI"
     end
 
     def aus_uri
@@ -84,9 +80,11 @@ module ApiNg
 
     def call
       JsonRpc.logger.debug "Invoking API NG @ #{uri} MethodName: #{method_name_prefix}#{method_name}"
+      JsonRpc.logger.debug "Headers: #{headers}"
+      JsonRpc.logger.debug "Request: #{rpc_request.to_json}"
       response = http.post(@uri.path, rpc_request.to_json, headers)
       JsonRpc.logger.debug "Response Body -  #{response.body}"
-      JSON.parse(response.body, symbolize_names: true)[:result]
+      Hashie::Rash.new(JSON.parse(response.body, symbolize_names: true))[:result]
     end
   end
 end
