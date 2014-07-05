@@ -1,6 +1,6 @@
 class EventType < ActiveRecord::Base
   self.primary_key = 'api_id'
-  has_many :markets, dependent: :delete_all
+  has_many :events, dependent: :delete_all
 
   def self.load
     event_types = ApiNg::EventTypes.new.call
