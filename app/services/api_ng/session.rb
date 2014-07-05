@@ -23,14 +23,8 @@ module ApiNg
       }
     end
 
-    def pass
-      crypt = ActiveSupport::MessageEncryptor.new('4fc392a6-7518-4160-b0ff-f48fa4527a33')
-      crypt.decrypt_and_verify("eTJ6U1hieGVOMjNBVGYvdGZOcHRXdkZvbkVMUzV5QXJ1TkpPMnN1bVVKOD0tLUN5ODZCL2l3cU5NU2N1bmNRUG5vNXc9PQ==--e4ea6bea331358b6db12ff986082c1031fa1c293")
-    end
-
-
     def sso_id
-      response = http.post(@uri.path, "username=nvenky&password=#{pass}", headers)
+      response = http.post(@uri.path, "username=#{ENV['USERNAME']}&password=#{ENV['PASS']}", headers)
       data = JSON.parse(response.body, symbolize_names: true)
       raise "Login failed - #{data[:error]}" if data[:status] != 'SUCCESS'
       data[:token]
