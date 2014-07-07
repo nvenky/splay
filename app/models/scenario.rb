@@ -1,5 +1,5 @@
 class Scenario
-  attr_accessor :side, :range, :positions, :size
+  attr_writer :side, :range, :position, :size
 
   def initialize(*h)
     if h.length == 1 && h.first.kind_of?(Hash)
@@ -8,19 +8,35 @@ class Scenario
   end
 
   def back?
-    side == 'BACK'
+    @side == 'BACK'
   end
 
   def lay?
-    side == 'LAY'
+    @side == 'LAY'
   end
 
   def lay_sp?
-    side == 'LAY (SP)'
+    @side == 'LAY (SP)'
+  end
+
+  def size
+    @size.to_i
+  end
+
+  def position
+    @position.to_i
   end
 
   def positions(size)
-    range.nil? ? positions : positions_from_range(size)
+    @range.blank? ? [position] : positions_from_range(size)
+  end
+
+  def side
+    @side
+  end
+
+  def range
+    @range
   end
 
   private

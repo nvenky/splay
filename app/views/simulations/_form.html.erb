@@ -1,0 +1,13 @@
+<%= form_tag(run_simulations_path, :remote => true, :id => 'simulationForm') do |f| %>
+  <% s = Scenario.new%>
+  <%= fields_for :scenarios, s,  child_index: s.object_id  do |scenario| %>
+ Side <%= select_tag "scenarios[side]", "<option>BACK</option><option>LAY</option><option>LAY (SP)</option>".html_safe%>
+ Size <%= scenario.text_field :size %>
+ Position <%= scenario.text_field :position%>
+ Range <%= select_tag "scenarios[range]", "<option></option><option>TOP 1/2</option><option>TOP 1/3</option><option>BOTTOM 1/2</option><option>BOTTOM 1/3</option>".html_safe%>
+  <% end %>
+
+<div class="actions">
+  <%= submit_tag 'Submit', class: 'save_button' %>
+</div>
+<% end %>

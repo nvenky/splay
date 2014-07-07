@@ -58,7 +58,7 @@ class Market < ActiveRecord::Base
     end
   end
 
-  private
+  #private
 
   def scenario_profit_loss(scenario)
     total = 0
@@ -66,6 +66,7 @@ class Market < ActiveRecord::Base
     runners.each_with_index do |runner, index|
       if positions.include?(index)
         total += runners[index].winner? ? runner_winning_amount(scenario, runner.actual_sp) : runner_losing_amount(scenario, runner.actual_sp)
+        p total
       end
     end
     total
