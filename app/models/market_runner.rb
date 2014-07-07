@@ -1,7 +1,8 @@
 class MarketRunner < ActiveRecord::Base
   belongs_to :market
   belongs_to :runner
-  default_scope { where("status in ('WINNER', 'LOSER')").order('actual_sp ASC')}
+  default_scope { order('actual_sp ASC')}
+  scope :winners_losers, -> {where("status in ('WINNER', 'LOSER')")}
 
   def winner?
     status == 'WINNER'

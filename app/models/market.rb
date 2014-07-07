@@ -58,7 +58,7 @@ class Market < ActiveRecord::Base
     end
   end
 
-  #private
+  private
 
   def scenario_profit_loss(scenario)
     total = 0
@@ -93,6 +93,6 @@ class Market < ActiveRecord::Base
   end
 
   def runners
-    @runners ||= market_runners
+    @runners ||= market_runners.winners_losers
   end
 end
