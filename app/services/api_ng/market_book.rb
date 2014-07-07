@@ -12,7 +12,7 @@ module ApiNg
     end
 
     def default_params
-      {'market_ids' =>  @market_ids, 'priceProjection' => {'priceData' => ['SP_AVAILABLE']}}
+      {'marketIds' =>  @market_ids, 'priceProjection' => {'priceData' => ['SP_AVAILABLE']}}
     end
 
   end

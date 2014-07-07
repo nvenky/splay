@@ -12,7 +12,7 @@ module ApiNg
 
     def initialize(exchange=:aus, params={})
       @exchange = (exchange == :uk) ? :uk : :aus #fall back on anything other than :uk
-      self.params = params
+      @params = params
     end
 
     def init_http
@@ -84,7 +84,13 @@ module ApiNg
       JsonRpc.logger.debug "Request: #{rpc_request.to_json}"
       response = http.post(@uri.path, rpc_request.to_json, headers)
       JsonRpc.logger.debug "Response Body -  #{response.body}"
-      Hashie::Rash.new(JSON.parse(response.body, symbolize_names: true))[:result]
+      hash = Hashie::Rash.new(JSON.parse(response.body, symbolize_names: true))
+      verify_and_raise_error(hash)
+      hash[:result]
+    end
+
+    def verify_and_raise_error(response)
+      raise "#{response.error.code}: #{response.error.data}" unless response.error.nil?
     end
   end
 end

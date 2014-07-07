@@ -4,7 +4,7 @@ class CreateMarkets < ActiveRecord::Migration
       t.primary_key :api_id
       t.integer :exchange_id
       t.string :betting_type
-      t.date :start_time
+      t.timestamp :start_time
       t.string :name
       t.string :market_type
       t.belongs_to :event

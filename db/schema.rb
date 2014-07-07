@@ -37,13 +37,13 @@ ActiveRecord::Schema.define(version: 20140705034123) do
   add_index "market_runners", ["runner_id"], name: "index_market_runners_on_runner_id", using: :btree
 
   create_table "markets", primary_key: "api_id", force: true do |t|
-    t.integer "exchange_id"
-    t.string  "betting_type"
-    t.date    "start_time"
-    t.string  "name"
-    t.string  "market_type"
-    t.integer "event_id"
-    t.string  "status",       default: "OPEN"
+    t.integer  "exchange_id"
+    t.string   "betting_type"
+    t.datetime "start_time"
+    t.string   "name"
+    t.string   "market_type"
+    t.integer  "event_id"
+    t.string   "status",       default: "OPEN"
   end
 
   create_table "runners", primary_key: "api_id", force: true do |t|
