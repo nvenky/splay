@@ -1,5 +1,5 @@
 class Scenario
-  attr_writer :side, :range, :position, :size
+  attr_accessor :side, :range, :market_type
 
   def initialize(*h)
     if h.length == 1 && h.first.kind_of?(Hash)
@@ -20,23 +20,23 @@ class Scenario
   end
 
   def size
-    @size.to_i
+    @size
+  end
+
+  def size=(size)
+    @size = size.to_i
   end
 
   def position
-    @position.to_i
+    @position
+  end
+
+  def position=(pos)
+    @position = pos.class == String ? pos.split(',').map{|p| p.strip.to_i} : [pos.to_i]
   end
 
   def positions(size)
-    @range.blank? ? [position] : positions_from_range(size)
-  end
-
-  def side
-    @side
-  end
-
-  def range
-    @range
+    @range.blank? ? position : positions_from_range(size)
   end
 
   private

@@ -6,6 +6,8 @@ class Market < ActiveRecord::Base
   has_many :runners, through: :market_runners, dependent: :delete_all
 
   scope :open_after_start_time, -> { where("start_time < '#{Time.now - 10.minutes}' and status = 'OPEN'" ) }
+  scope :market_type, ->(market_type) {where "market_type = '#{market_type}'"}
+  scope :closed, -> {where ("status = 'CLOSED'")}
 
   def self.load(event_type_id)
     event_type = EventType.find(event_type_id)
@@ -64,9 +66,8 @@ class Market < ActiveRecord::Base
     total = 0
     positions = scenario.positions(runners.size)
     runners.each_with_index do |runner, index|
-      if positions.include?(index)
+      if positions.include?(index) and runners[index].actual_sp
         total += runners[index].winner? ? runner_winning_amount(scenario, runner.actual_sp) : runner_losing_amount(scenario, runner.actual_sp)
-        p total
       end
     end
     total
@@ -74,9 +75,9 @@ class Market < ActiveRecord::Base
 
   def runner_winning_amount(scenario, sp)
     if scenario.back?
-      scenario.size * sp
+      (scenario.size * sp) - scenario.size
     elsif scenario.lay?
-      -(scenario.size * sp)
+      -((scenario.size * sp) - scenario.size)
     else
       -scenario.size
     end
