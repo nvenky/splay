@@ -14,7 +14,7 @@ class SimulationsController < ApplicationController
 
     markets = Market.closed
     markets = markets.market_type(params[:market_type]) unless params[:market_type].blank?
-    markets.take(200).each_with_index do |market, index|
+    markets.each_with_index do |market, index|
       amount = market.profit_loss(simulation.scenarios)
       total += amount
       winnings_series << amount.round(2).to_f

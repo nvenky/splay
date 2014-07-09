@@ -11,7 +11,9 @@ class Market < ActiveRecord::Base
 
   def self.load(event_type_id)
     event_type = EventType.find(event_type_id)
-    markets = ApiNg::MarketCatalogue.new([event_type_id], Market.maximum(:start_time)).call
+    last_fetch_time = Market.includes(:event).where('events.event_type_id = ?', event_type_id).maximum(:start_time)
+    last_fetch_time = last_fetch_time + 1.second if last_fetch_time
+    markets = ApiNg::MarketCatalogue.new([event_type_id], last_fetch_time).call
     markets.each do |market|
       exchange_id, api_id = market.market_id.split('.')
       m = Market.where(api_id: api_id).first_or_create(
