@@ -4,7 +4,10 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.1.1'
 
 # Use SCSS for stylesheets
+gem 'bootstrap-sass'
 gem 'sass-rails'
+gem 'autoprefixer-rails'
+gem 'font-awesome-sass'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
@@ -28,6 +31,7 @@ gem 'rash'
 gem 'pg'
 gem 'foreigner'
 gem 'whenever', :require => false
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

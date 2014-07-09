@@ -4,8 +4,10 @@ var drawGraph = function(data){
     data: {
       columns: [ data[0], data[1] ]
     },
-    types: {
-        Winnings: 'bar'
+    grid: {
+        y: {
+            lines: [{value: 0, text: '0 AXIS'}]
+        }
     }
 });
 };

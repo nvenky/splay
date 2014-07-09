@@ -9,7 +9,16 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require font-awesome
  *= require_tree .
 //= require_tree ../../../lib/assets/stylesheets
- 
- */
+
+*/
+
+@import "bootstrap";
+@import "bootstrap-sprockets";
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}

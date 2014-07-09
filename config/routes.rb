@@ -7,4 +7,5 @@ Betfair::Application.routes.draw do
   match 'jobs/load_event_types', to: 'jobs#load_event_types', via: :get
   match 'jobs/load_markets', to: 'jobs#load_markets', via: :get
   match 'jobs/update_markets', to: 'jobs#update_markets', via: :get
+  root 'simulations#new'
 end
