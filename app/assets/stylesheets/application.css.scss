@@ -22,3 +22,20 @@
    padding: 0 !important;
    margin: 0 !important;
 }
+
+.row {
+    margin: 10px;
+}
+
+.bold {
+  font-weight: 800;
+}
+
+.load-ajax {
+    float:right;
+    background-image: image-url("ajax_loader.gif");
+    width:150px;
+    height:20px;
+    background-position: center;
+    background-repeat: no-repeat;
+}

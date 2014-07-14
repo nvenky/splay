@@ -7,10 +7,16 @@ $(document).ready(function(){
   });
 
   $('#simulationForm').on('ajax:success',function(event, data, status, xhr){
-    var summaryData = data[1];
-    $('#finalAmount').html('PROFIT/LOSS: ' + summaryData[summaryData.length - 1]);
-    //$('#lowestValue').html('LOWEST: ' + Math.min.apply(Math, data[1].splice(0,1)));
-    //$('#highestValue').html('HIGHEST: ' + Math.max.apply(Math, data[1].splice(0,1)));
+    var summaryData = _.rest(data[1]);
+    var raceData = _.rest(data[0]);
+    var totalRaces = _.size(raceData);
+    var winningRaces = _.size(_.filter(raceData, function(num){ return num > 0; }));
+    $('.summary .totalRaces').html(totalRaces);
+    $('.summary .winningRaces').html(winningRaces);
+    $('.summary .winningPercentage').html(winningRaces/totalRaces * 100);
+    $('.summary .profitLoss').html(_.last(summaryData));
+    $('.summary .highestValue').html(_.max(summaryData));
+    $('.summary .lowestValue').html(_.min(summaryData));
     drawGraph(data);
   }).on('ajax:error',function(xhr, status, error){
     alert('Failed');

@@ -29,5 +29,6 @@ class SimulationsController < ApplicationController
     markets = markets.joins(:event => :venue).where(['venues.name = ?', params[:venue]]) unless params[:venue].blank?
     markets = markets.where(['start_time > ?', DateTime.strptime(params[:start_date], "%d/%m/%Y")]) unless params[:start_date].blank?
     markets = markets.market_type(params[:market_type]) unless params[:market_type].blank?
+    markets
   end
 end
