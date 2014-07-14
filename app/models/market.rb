@@ -62,6 +62,16 @@ class Market < ActiveRecord::Base
     end
   end
 
+  def to_json
+    {
+      market_type: market_type,
+      venue: event.venue.name,
+      number_of_runners: runners.size,
+      winning_runners: runners
+
+    }
+  end
+
   private
 
   def scenario_profit_loss(scenario)

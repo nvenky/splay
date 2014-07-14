@@ -1,6 +1,7 @@
 class SimulationsController < ApplicationController
   def new
     @simulation = Simulation.new
+    @venues = Venue.pluck(:name)
   end
 
   def run
@@ -12,14 +13,21 @@ class SimulationsController < ApplicationController
     summary_series = ['Summary']
     total = 0
 
-    markets = Market.closed
-    markets = markets.market_type(params[:market_type]) unless params[:market_type].blank?
-    markets.each_with_index do |market, index|
+    market_filter.each_with_index do |market, index|
       amount = market.profit_loss(simulation.scenarios)
       total += amount
       winnings_series << amount.round(2).to_f
       summary_series << total.round(2).to_f
     end
     render json: [winnings_series, summary_series]
+  end
+
+  private
+
+  def market_filter
+    markets = Market.closed
+    markets = markets.joins(:event => :venue).where(['venues.name = ?', params[:venue]]) unless params[:venue].blank?
+    markets = markets.where(['start_time > ?', DateTime.strptime(params[:start_date], "%d/%m/%Y")]) unless params[:start_date].blank?
+    markets = markets.market_type(params[:market_type]) unless params[:market_type].blank?
   end
 end

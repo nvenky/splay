@@ -1,4 +1,11 @@
 $(document).ready(function(){
+  $('#simulationForm .input-group.date').datepicker({
+    format: "dd/mm/yyyy",
+    startDate: "01/07/2014",
+    autoclose: true,
+    todayHighlight: true
+  });
+
   $('#simulationForm').on('ajax:success',function(event, data, status, xhr){
     var summaryData = data[1];
     $('#finalAmount').html('PROFIT/LOSS: ' + summaryData[summaryData.length - 1]);
