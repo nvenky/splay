@@ -30,7 +30,7 @@ gem 'byebug'
 gem 'rash'
 gem 'pg'
 gem 'foreigner'
-gem 'whenever', :require => false
+gem 'rufus-scheduler'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

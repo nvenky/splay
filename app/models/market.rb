@@ -10,6 +10,7 @@ class Market < ActiveRecord::Base
   scope :closed, -> {where ("status = 'CLOSED'")}
 
   def self.load(event_type_id)
+    Rails.logger.debug 'LOADING MARKETS'
     event_type = EventType.find(event_type_id)
     last_fetch_time = Market.includes(:event).where('events.event_type_id = ?', event_type_id).maximum(:start_time)
     last_fetch_time = last_fetch_time + 1.second if last_fetch_time
@@ -30,6 +31,7 @@ class Market < ActiveRecord::Base
   end
 
   def self.update_closed_markets
+    Rails.logger.debug 'UPDATING CLOSED MARKETS'
     market_ids = open_after_start_time.limit(50).select([:exchange_id, :api_id]).map{|m| "#{m.exchange_id}.#{m.api_id}"}
     closed_markets = ApiNg::MarketBook.new(market_ids).call.select{|m| m.status == 'CLOSED'}
     closed_markets.each do |market|
