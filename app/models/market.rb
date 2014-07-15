@@ -70,7 +70,6 @@ class Market < ActiveRecord::Base
       venue: event.venue.name,
       number_of_runners: runners.size,
       winning_runners: runners
-
     }
   end
 

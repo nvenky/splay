@@ -32,17 +32,19 @@ class Scenario
   end
 
   def position=(pos)
-    @position = pos.class == String ? pos.split(',').map{|p| p.strip.to_i} : [pos.to_i]
+    @position = pos.class == String ? pos.split(',').map{|p| p.strip.to_i - 1} : [pos.to_i - 1]
   end
 
   def positions(size)
-    @range.blank? ? position : positions_from_range(size)
+    @range.blank? ? position.select{|p| p < size} : positions_from_range(size)
   end
 
   private
 
   def positions_from_range(size)
-    if range == 'TOP 1/2'
+    if range == 'ALL'
+      (0..(size - 1)).to_a
+    elsif range == 'TOP 1/2'
       (0..((size * 0.5).round - 1)).to_a
     elsif range == 'BOTTOM 1/2'
       ((size * 0.5).round..size-1).to_a
