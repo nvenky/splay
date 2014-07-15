@@ -1,12 +1,21 @@
-<%= form_tag(run_simulations_path, :remote => true, :id => 'simulationForm', class: 'form-horizontal', role: 'form') do |f| %>
+<%= form_tag(run_simulations_path, :remote => true, :id => 'simulationForm', class: 'form-horizontal', role: 'form') do%>
   <div id='simulation'>
+  <div class="form-group">
+    <label for="commission" class='col-md-2 control-label'>Commission</label>
+    <div class='col-md-5'>
+      <div class="input-group">
+        <%= text_field_tag :commission, '5', class: 'form-control'%>
+        <span class="input-group-addon">%</span>
+      </div>
+    </div>
+  </div>
   <div class="form-group">
     <label for="market_type" class='col-md-2 control-label'>Market Type</label>
     <div class='col-md-5'>
       <%= select_tag "market_type", "<option></option><option>WIN</option><option>PLACE</option>".html_safe, class: 'form-control'%>
     </div>
   </div>
-   <div class="form-group">
+  <div class="form-group">
     <label for="venue" class='col-md-2 control-label'>Venue</label>
     <div class='col-md-5'>
       <%= select_tag "venue", options_for_select([''] + @venues.sort), class: 'form-control'%>

@@ -16,5 +16,3 @@ end
 scheduler.every '15m' do
   Market.update_closed_markets
 end
-
-scheduler.join

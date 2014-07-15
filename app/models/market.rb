@@ -58,9 +58,9 @@ class Market < ActiveRecord::Base
     end
   end
 
-  def profit_loss(scenarios)
-    scenarios.inject(0) do |total, scenario|
-      total += scenario_profit_loss(scenario)
+  def profit_loss(simulation)
+    simulation.scenarios.inject(0) do |total, scenario|
+      total += scenario_profit_loss(simulation.commission, scenario)
     end
   end
 
@@ -76,12 +76,13 @@ class Market < ActiveRecord::Base
 
   private
 
-  def scenario_profit_loss(scenario)
+  def scenario_profit_loss(commission, scenario)
     total = 0
     positions = scenario.positions(runners.size)
     runners.each_with_index do |runner, index|
       if positions.include?(index) and runners[index].actual_sp
-        total += runners[index].winner? ? runner_winning_amount(scenario, runner.actual_sp) : runner_losing_amount(scenario, runner.actual_sp)
+        profit = runners[index].winner? ? runner_winning_amount(scenario, runner.actual_sp) : runner_losing_amount(scenario, runner.actual_sp)
+        total += profit > 0 ? profit * ((100 - commission)/100) : profit
       end
     end
     total

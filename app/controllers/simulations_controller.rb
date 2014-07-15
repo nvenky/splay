@@ -1,12 +1,11 @@
 class SimulationsController < ApplicationController
   def new
-    @simulation = Simulation.new
     @venues = Venue.pluck(:name)
   end
 
   def run
     scenario = Scenario.new(params[:scenarios].symbolize_keys)
-    simulation = Simulation.new
+    simulation = Simulation.new(params[:commission].to_d)
     simulation.scenarios << scenario
 
     winnings_series = ['Winnings']
@@ -14,7 +13,7 @@ class SimulationsController < ApplicationController
     total = 0
 
     market_filter.each_with_index do |market, index|
-      amount = market.profit_loss(simulation.scenarios)
+      amount = market.profit_loss(simulation)
       total += amount
       winnings_series << amount.round(2).to_f
       summary_series << total.round(2).to_f
