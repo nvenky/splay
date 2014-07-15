@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.1.2'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.1.1'
 
@@ -32,6 +34,8 @@ gem 'pg'
 gem 'foreigner'
 gem 'rufus-scheduler'
 
+#Heroku
+gem 'rails_stdout_logging'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
