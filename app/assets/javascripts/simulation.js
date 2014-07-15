@@ -21,4 +21,15 @@ $(document).ready(function(){
   }).on('ajax:error',function(xhr, status, error){
     alert('Failed');
   });
+
+
+  // when an ajax request starts, show spinner
+  $(document).ajaxStart(function(){
+    $("#loadingOverlay").show();
+  });
+
+  // when an ajax request complets, hide spinner
+  $(document).ajaxStop(function(){
+    $("#loadingOverlay").hide();
+  });
 });
