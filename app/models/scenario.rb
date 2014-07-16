@@ -1,5 +1,5 @@
 class Scenario
-  attr_accessor :side, :range, :market_type
+  attr_accessor :side, :range, :market_type, :min_odds, :max_odds
 
   def initialize(*h)
     if h.length == 1 && h.first.kind_of?(Hash)
@@ -37,6 +37,18 @@ class Scenario
 
   def positions(size)
     @range.blank? ? position.select{|p| p < size} : positions_from_range(size)
+  end
+
+  def odds_in_range?(odds)
+    (min_odds.nil? || odds >= min_odds) && (max_odds.nil? || odds <= max_odds )
+  end
+
+  def min_odds=(odds)
+    @min_odds = odds.to_d unless odds.blank?
+  end
+
+  def max_odds=(odds)
+    @max_odds = odds.to_d unless odds.blank?
   end
 
   private

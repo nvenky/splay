@@ -4,7 +4,7 @@ class SimulationsController < ApplicationController
                 territory: venue_unique_values(:territory),
                 venue_class: venue_unique_values(:venue_class),
                 tier: venue_unique_values(:tier)
-              }
+    }
     @event_types = EventType.where("name like '%Racing'")
   end
 
@@ -19,9 +19,11 @@ class SimulationsController < ApplicationController
 
     market_filter.each_with_index do |market, index|
       amount = market.profit_loss(simulation)
-      total += amount
-      winnings_series << amount.round(2).to_f
-      summary_series << total.round(2).to_f
+      if amount != 0
+        total += amount
+        winnings_series << amount.round(2).to_f
+        summary_series << total.round(2).to_f
+      end
     end
     render json: [winnings_series, summary_series]
   end

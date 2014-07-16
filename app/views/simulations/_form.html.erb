@@ -2,9 +2,9 @@
   <div id='simulation'>
   <div class="form-group">
     <label for="commission" class='col-md-2 control-label'>Commission</label>
-    <div class='col-md-5'>
+    <div class='col-md-2'>
       <div class="input-group">
-        <%= text_field_tag :commission, '4', class: 'form-control'%>
+        <%= text_field_tag :commission, '5', class: 'form-control'%>
         <span class="input-group-addon">%</span>
       </div>
     </div>
@@ -51,24 +51,36 @@
     <div id='scenario'>
     <div class="form-group">
       <label for="market_type"  class='col-md-2 control-label'>Side</label>
-      <div class='col-md-4'>
+      <div class='col-md-2'>
         <%= select_tag "scenarios[side]", "<option>BACK</option><option>LAY</option><option>LAY (SP)</option>".html_safe, class: 'form-control'%>
       </div>
       <label for="market_type" class='col-md-2 control-label'>Size</label>
-      <div class='col-md-4'>
+      <div class='col-md-2'>
         <div class="input-group">
           <span class="input-group-addon">$</span>
           <%= scenario.text_field :size, class: 'form-control'%>
         </div>
       </div>
     </div>
+     <div class="form-group">
+      <label for="min_odds"  class='col-md-2 control-label'>Min Odds</label>
+      <div class='col-md-2'>
+          <%= scenario.text_field :min_odds, class: 'form-control'%>
+      </div>
+      <label for="max_odds" class='col-md-2 control-label'>Max Odds</label>
+      <div class='col-md-2'>
+        <div class="input-group">
+          <%= scenario.text_field :max_odds, class: 'form-control'%>
+        </div>
+      </div>
+    </div>
     <div class="form-group">
-      <label for="market_type" class='col-md-2 control-label'>Position</label>
-      <div class='col-md-4'>
+      <label for="market_type" class='col-md-2 control-label'>Favourite Position</label>
+      <div class='col-md-2'>
         <%= scenario.text_field :position, class: 'form-control', placeholder: 'Comma Seperated'%>
       </div>
-      <label for="range" class='col-md-2 control-label'>OR</label>
-      <div class='col-md-4'>
+      <label for="Or" class='col-md-2 control-label'>Or</label>
+      <div class='col-md-2'>
         <%= select_tag "scenarios[range]", "<option></option><option>ALL</option><option>TOP 1/2</option><option>TOP 1/3</option><option>BOTTOM 1/2</option><option>BOTTOM 1/3</option>".html_safe, class: 'form-control'%>
       </div>
     </div>

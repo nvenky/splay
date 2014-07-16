@@ -79,8 +79,8 @@ class Market < ActiveRecord::Base
     total = 0
     positions = scenario.positions(runners.size)
     runners.each_with_index do |runner, index|
-      if positions.include?(index) and runners[index].actual_sp
-        total += runners[index].winner? ? runner_winning_amount(scenario, runner.actual_sp) : runner_losing_amount(scenario, runner.actual_sp)
+      if positions.include?(index) and runner.actual_sp and scenario.odds_in_range?(runner.actual_sp)
+        total += runner.winner? ? runner_winning_amount(scenario, runner.actual_sp) : runner_losing_amount(scenario, runner.actual_sp)
       end
     end
      total > 0 ? total * ((100 - commission)/100) : total
