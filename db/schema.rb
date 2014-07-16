@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140709184930) do
+ActiveRecord::Schema.define(version: 20140716134547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,8 +52,11 @@ ActiveRecord::Schema.define(version: 20140709184930) do
   end
 
   create_table "venues", force: true do |t|
-    t.string "country_code"
-    t.string "name"
+    t.string  "country_code"
+    t.string  "name"
+    t.string  "territory"
+    t.string  "venue_class"
+    t.integer "tier"
   end
 
   add_foreign_key "events", "event_types", name: "events_event_type_id_fk", primary_key: "api_id"

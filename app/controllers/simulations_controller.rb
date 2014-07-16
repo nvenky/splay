@@ -1,6 +1,11 @@
 class SimulationsController < ApplicationController
   def new
-    @venues = Venue.pluck(:name)
+    @venues = { name: Venue.pluck(:name).sort,
+                territory: venue_unique_values(:territory),
+                venue_class: venue_unique_values(:venue_class),
+                tier: venue_unique_values(:tier)
+              }
+    @event_types = EventType.where("name like '%Racing'")
   end
 
   def run
@@ -24,10 +29,18 @@ class SimulationsController < ApplicationController
   private
 
   def market_filter
-    markets = Market.closed
-    markets = markets.joins(:event => :venue).where(['venues.name = ?', params[:venue]]) unless params[:venue].blank?
+    markets = Market.joins(:event => :venue).closed
+    markets = markets.where(['venues.territory= ?', params[:venue_territory]]) unless params[:venue_territory].blank?
+    markets = markets.where(['venues.venue_class = ?', params[:venue_class]]) unless params[:venue_class].blank?
+    markets = markets.where(['venues.tier = ?', params[:venue_tier]]) unless params[:venue_tier].blank?
+    markets = markets.where(['venues.name = ?', params[:venue_name]]) unless params[:venue_name].blank?
+    markets = markets.where(['events.event_type_id = ?', params[:event_type_id]]) unless params[:event_type_id].blank?
     markets = markets.where(['start_time > ?', DateTime.strptime(params[:start_date], "%d/%m/%Y")]) unless params[:start_date].blank?
     markets = markets.market_type(params[:market_type]) unless params[:market_type].blank?
     markets
+  end
+
+  def venue_unique_values(field)
+    Venue.uniq.pluck(field).compact.sort
   end
 end

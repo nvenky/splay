@@ -12,11 +12,19 @@ $(document).ready(function(){
     var totalRaces = _.size(raceData);
     var winningRaces = _.size(_.filter(raceData, function(num){ return num > 0; }));
     $('.summary .totalRaces').html(totalRaces);
-    $('.summary .winningRaces').html(winningRaces);
-    $('.summary .winningPercentage').html(winningRaces/totalRaces * 100);
-    $('.summary .profitLoss').html(_.last(summaryData));
-    $('.summary .highestValue').html(_.max(summaryData));
-    $('.summary .lowestValue').html(_.min(summaryData));
+    if (totalRaces == 0) {
+      $('.summary .winningRaces').html('0');
+      $('.summary .winningPercentage').html('0');
+      $('.summary .profitLoss').html('0');
+      $('.summary .highestValue').html('0');
+      $('.summary .lowestValue').html('0');
+    }else{
+      $('.summary .winningRaces').html(winningRaces);
+      $('.summary .winningPercentage').html(winningRaces/totalRaces * 100);
+      $('.summary .profitLoss').html(_.last(summaryData));
+      $('.summary .highestValue').html(_.max(summaryData));
+      $('.summary .lowestValue').html(_.min(summaryData));
+    }
     drawGraph(data);
   }).on('ajax:error',function(xhr, status, error){
     alert('Failed');
