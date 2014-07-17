@@ -13,33 +13,34 @@ $(document).ready(function(){
     var totalRaces = _.size(raceData);
     var winningRaces = _.size(_.filter(raceData, function(num){ return num > 0; }));
     $('.summary .totalRaces').html(totalRaces);
-    if (totalRaces == 0) {
-      $('.summary .winningRaces').html('0');
-      $('.summary .winningPercentage').html('0');
-      $('.summary .profitLoss').html('0');
-      $('.summary .highestValue').html('0');
-      $('.summary .lowestValue').html('0');
-    }else{
-      $('.summary .winningRaces').html(winningRaces);
-      $('.summary .winningPercentage').html(winningRaces/totalRaces * 100);
-      $('.summary .profitLoss').html(_.last(summaryData));
-      $('.summary .highestValue').html(_.max(summaryData));
-      $('.summary .lowestValue').html(_.min(summaryData));
+    if (totalRaces != 0) {
+      var summary = {
+        totalRaces: totalRaces,
+        winningRaces: winningRaces,
+        winningPercentage: winningRaces/totalRaces * 100,
+        profitLoss: _.last(summaryData),
+        highestValue: _.max(summaryData),
+        lowestValue: _.min(summaryData)
 
+      };
+      $('#graph').html(HandlebarsTemplates['simulations/graph'](responseData));
+      drawGraph(data);
+      $('#summary').html(HandlebarsTemplates['simulations/result_summary'](summary));
       $('#details').html(HandlebarsTemplates['simulations/market_details_table'](responseData));
+    } else{
+      $('#summary').html(HandlebarsTemplates['simulations/no_results']());
+      $('#details').html('');
+      $('graph').html('');
     }
-    drawGraph(data);
   }).on('ajax:error',function(xhr, status, error){
     alert('Failed');
   });
 
 
-  // when an ajax request starts, show spinner
   $(document).ajaxStart(function(){
     $("#loadingOverlay").show();
   });
 
-  // when an ajax request complets, hide spinner
   $(document).ajaxStop(function(){
     $("#loadingOverlay").hide();
   });
