@@ -28,7 +28,6 @@ gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
-gem 'byebug'
 gem 'rash'
 gem 'pg'
 gem 'foreigner'
@@ -36,6 +35,12 @@ gem 'rufus-scheduler'
 
 #Heroku
 gem 'rails_stdout_logging'
+
+gem 'handlebars_assets'
+
+group :development do
+  gem 'byebug'
+end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

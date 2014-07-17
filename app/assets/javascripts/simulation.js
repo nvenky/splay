@@ -6,7 +6,8 @@ $(document).ready(function(){
     todayHighlight: true
   });
 
-  $('#simulationForm').on('ajax:success',function(event, data, status, xhr){
+  $('#simulationForm').on('ajax:success',function(event, responseData, status, xhr){
+    data = responseData.chart_data
     var summaryData = _.rest(data[1]);
     var raceData = _.rest(data[0]);
     var totalRaces = _.size(raceData);
@@ -24,6 +25,8 @@ $(document).ready(function(){
       $('.summary .profitLoss').html(_.last(summaryData));
       $('.summary .highestValue').html(_.max(summaryData));
       $('.summary .lowestValue').html(_.min(summaryData));
+
+      $('#details').html(HandlebarsTemplates['simulations/market_details_table'](responseData));
     }
     drawGraph(data);
   }).on('ajax:error',function(xhr, status, error){

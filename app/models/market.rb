@@ -9,6 +9,8 @@ class Market < ActiveRecord::Base
   scope :market_type, ->(market_type) {where "market_type = '#{market_type}'"}
   scope :closed, -> {where ("status = 'CLOSED'")}
 
+  default_scope { order('start_time ASC')}
+
   def self.load(event_type_id)
     Rails.logger.debug 'LOADING MARKETS'
     event_type = EventType.find(event_type_id)
@@ -64,13 +66,11 @@ class Market < ActiveRecord::Base
     end
   end
 
-  def to_json
-    {
-      market_type: market_type,
-      venue: event.venue.name,
-      number_of_runners: runners.size,
-      winning_runners: runners
-    }
+  def runners_sp_summary
+    runners.map do |runner|
+      "#{runner.actual_sp.round(2).to_f}(#{runner.winner? ? 'W' : 'L'})"
+    end.join('; ')
+
   end
 
   private

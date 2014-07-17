@@ -15,6 +15,7 @@ class SimulationsController < ApplicationController
 
     winnings_series = ['Winnings']
     summary_series = ['Summary']
+    market_details = []
     total = 0
 
     market_filter.each_with_index do |market, index|
@@ -23,9 +24,11 @@ class SimulationsController < ApplicationController
         total += amount
         winnings_series << amount.round(2).to_f
         summary_series << total.round(2).to_f
+        market_details << market_detail(market, amount.round(2).to_f)
+
       end
     end
-    render json: [winnings_series, summary_series]
+    render json: {chart_data: [winnings_series, summary_series], market_details: market_details}
   end
 
   private
@@ -44,5 +47,17 @@ class SimulationsController < ApplicationController
 
   def venue_unique_values(field)
     Venue.uniq.pluck(field).compact.sort
+  end
+
+  def market_detail(market, profit_loss)
+    {
+      start_time: market.start_time.in_time_zone('Melbourne').strftime('%d-%m-%Y %H:%M:%S'),
+            event_type: market.event.event_type.name,
+            market_type: market.market_type,
+            venue: market.event.venue.name,
+            name: market.name,
+            runners_summary: market.runners_sp_summary,
+            amount: profit_loss
+    }
   end
 end
