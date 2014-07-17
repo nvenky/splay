@@ -17,49 +17,8 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <i class="fa fa-bar-chart-o fa-fw"></i>Summary
-        </div>
-        <!-- /.panel-heading -->
-        <div class="panel-body">
-          <div class="summary row">
-            <div class='row'>
-              <div class='col-md-2'><span class='bold'>No. of races</span></div>
-              <div class='col-md-2 totalRaces'></div>
-              <div class='col-md-2'><span class='bold'>Winning races</span></div>
-              <div class='col-md-2 winningRaces'></div>
-              <div class='col-md-2'><span class='bold'>Winning Percentage</span></div>
-              <div class='col-md-2 winningPercentage'></div>
-            </div>
-            <div class='row'>
-              <div class='col-md-2'><span class='bold'>Profit/Loss</span></div>
-              <div class='col-md-2 profitLoss'></div>
-              <div class='col-md-2'><span class='bold'>Highest Amount</span></div>
-              <div class='col-md-2 highestValue'></div>
-              <div class='col-md-2'><span class='bold'>Lowest Amount</span></div>
-              <div class='col-md-2 lowestValue'></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <i class="fa fa-bar-chart-o fa-fw"></i> Graph
-        </div>
-        <!-- /.panel-heading -->
-        <div class="panel-body">
-          <div id='chart'></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= render 'summary' %>
+  <%= render 'graph' %>
   <div id="loadingOverlay" class="loadingOverlay" style="display:none">
     <img src="/assets/ajax_loader.gif" id="spinner"/>
   </div>

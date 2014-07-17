@@ -7,12 +7,11 @@ scheduler.every '1d' do
 end
 
 scheduler.every '1h' do
-  horse_race = EventType.where("name like 'Horse%'").first
-  greyhound_race = EventType.where("name like 'Horse%'").first
-  Market.load horse_race.api_id
-  Market.load greyhound_race.api_id if greyhound_race
+  EventType.where("name like '%Racing'").each do |event_type|
+    Market.load event_type.api_id
+  end
 end
 
-scheduler.every '15m' do
+scheduler.every '10m' do
   Market.update_closed_markets
 end
