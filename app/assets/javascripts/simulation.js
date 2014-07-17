@@ -30,7 +30,7 @@ $(document).ready(function(){
     } else{
       $('#summary').html(HandlebarsTemplates['simulations/no_results']());
       $('#details').html('');
-      $('graph').html('');
+      $('#graph').html('');
     }
   }).on('ajax:error',function(xhr, status, error){
     alert('Failed');
