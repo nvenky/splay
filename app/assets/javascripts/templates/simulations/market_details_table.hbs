@@ -2,12 +2,13 @@
   <div class="col-md-12">
     <div class="panel panel-success">
       <div class="panel-heading">
-        <i class="fa fa-bar-chart-o fa-fw"></i>Details
+        Details
       </div>
       <div class="panel-body">
         <table class="market_details table table-hover">
           <thead>
             <tr>
+              <th class='col-md-1'> Sl No.</th>
               <th class='col-md-1'> Date </th>
               <th class='col-md-1'> Event Type</th>
               <th class='col-md-1'> Market Type</th>
@@ -19,6 +20,7 @@
           </thead>
           {{#each market_details}}
             <tr>
+              <td>{{increment @index}}</td>
               <td>{{start_time}}</td>
               <td>{{event_type}}</td>
               <td>{{market_type}}</td>
