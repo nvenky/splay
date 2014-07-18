@@ -17,7 +17,7 @@ module ApiNg
         'eventTypeIds' => @event_type_ids,
         'bspOnly' => true
       }
-      market_filter['marketStartTime'] = {'from' => @market_start_time_loaded.iso8601} if @market_start_time_loaded
+      #market_filter['marketStartTime'] = {'from' => @market_start_time_loaded.iso8601} if @market_start_time_loaded
 
       {'filter' => market_filter,
        'marketProjection' => ['EVENT', 'MARKET_DESCRIPTION', 'RUNNER_DESCRIPTION'],
