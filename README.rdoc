@@ -1,4 +1,4 @@
-[ ![Codeship Status for nvenky/splay](https://codeship.io/projects/d393b7b0-f049-0131-06f7-4eb19103006a/status)](https://codeship.io/projects/27364)
+Codeship Status for nvenky/splay (https://codeship.io/projects/d393b7b0-f049-0131-06f7-4eb19103006a/status)](https://codeship.io/projects/27364)
 
 == README
 
