@@ -38,6 +38,8 @@ gem 'rails_stdout_logging'
 
 gem 'handlebars_assets'
 
+gem 'newrelic_rpm'
+
 group :development do
   gem 'byebug'
 end
