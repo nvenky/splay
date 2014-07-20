@@ -8,4 +8,7 @@ Betfair::Application.routes.draw do
   match 'jobs/load_markets', to: 'jobs#load_markets', via: :get
   match 'jobs/update_markets', to: 'jobs#update_markets', via: :get
   root 'simulations#new'
+
+  #Authentication
+  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 end
