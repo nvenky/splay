@@ -69,6 +69,17 @@
         <%= select_tag "scenarios[range]", "<option>ALL</option><option>TOP 1/2</option><option>TOP 1/3</option><option>BOTTOM 1/2</option><option>BOTTOM 1/3</option>".html_safe, class: 'form-control', prompt: 'OR Range'%>
       </div>
     </div>
+     <div class="form-group">
+       <label for="min_odds"  class='col-md-2 control-label'>Price</label>
+       <div class='col-md-2'>
+           <%= scenario.text_field :min_odds, class: 'form-control', placeholder: 'Min odds'%>
+       </div>
+       <div class='col-md-2'>
+         <div class="input-group">
+           <%= scenario.text_field :max_odds, class: 'form-control', placeholder: 'Max odds'%>
+         </div>
+       </div>
+     </div>
   </div>
 <% end %>
 
