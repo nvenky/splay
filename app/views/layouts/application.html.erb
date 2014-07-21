@@ -20,6 +20,12 @@ ga('send', 'pageview');
 <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
+<header>
+  <%unless current_user.blank? -%>
+    <%=link_to "Log out", destroy_user_session_path, :method => :delete %>
+  <%end%>
+
+</header>
 <div class="container">
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
