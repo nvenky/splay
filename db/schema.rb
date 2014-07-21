@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140720225115) do
+ActiveRecord::Schema.define(version: 20140721093712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,20 @@ ActiveRecord::Schema.define(version: 20140720225115) do
     t.integer "venue_id"
     t.integer "event_type_id"
   end
+
+  create_table "market_filters", force: true do |t|
+    t.string   "filter_name"
+    t.string   "event_type"
+    t.string   "market_type"
+    t.datetime "start_date"
+    t.string   "territory"
+    t.string   "venue_class"
+    t.string   "tier"
+    t.string   "venue_name"
+    t.integer  "user_id"
+  end
+
+  add_index "market_filters", ["user_id"], name: "index_market_filters_on_user_id", using: :btree
 
   create_table "market_runners", force: true do |t|
     t.integer "market_id"
