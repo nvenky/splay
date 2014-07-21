@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140721093712) do
+ActiveRecord::Schema.define(version: 20140721213428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authorizations", force: true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.integer  "user_id"
+    t.string   "token"
+    t.string   "secret"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "authorizations", ["user_id"], name: "index_authorizations_on_user_id", using: :btree
 
   create_table "event_types", primary_key: "api_id", force: true do |t|
     t.string "name"
@@ -108,6 +120,8 @@ ActiveRecord::Schema.define(version: 20140721093712) do
     t.string  "venue_class"
     t.integer "tier"
   end
+
+  add_foreign_key "authorizations", "users", name: "authorizations_user_id_fk"
 
   add_foreign_key "events", "event_types", name: "events_event_type_id_fk", primary_key: "api_id"
   add_foreign_key "events", "venues", name: "events_venue_id_fk"
