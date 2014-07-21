@@ -67,7 +67,8 @@ class ReplaceMarketTableWithPrimaryKey < ActiveRecord::Migration
     OldMarket.all.each do |old_market|
       market = Market.create(old_market.attributes)
       old_market.old_market_runners.each do |old_market_runner|
-        MarketRunner.create(market: market, runner: old_market_runner.runner)
+        MarketRunner.create(market: market, runner: old_market_runner.runner,
+                            actual_sp: old_market_runner.actual_sp, status: old_market_runner.status)
       end
     end
   end
