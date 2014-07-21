@@ -13,13 +13,12 @@
     <h3>Market filter</h3>
   </div>
   <div class="form-group">
-    <label for="event_type" class='col-md-2 control-label'>Event Type</label>
+    <label for="event_type" class='col-md-2 control-label'>Market</label>
     <div class='col-md-2'>
-      <%= select_tag "event_type_id", options_from_collection_for_select(@event_types, 'id', 'name'), class: 'form-control', prompt: 'All'%>
+      <%= select_tag "event_type_id", options_from_collection_for_select(@event_types, 'id', 'name'), class: 'form-control', prompt: 'Event Type'%>
     </div>
-    <label for="market_type" class='col-md-2 control-label'>Market Type</label>
     <div class='col-md-2'>
-      <%= select_tag "market_type", "<option>WIN</option><option>PLACE</option><option value=''>BOTH</option>".html_safe, class: 'form-control'%>
+      <%= select_tag "market_type", "<option>WIN</option><option>PLACE</option><option value=''>BOTH</option>".html_safe, class: 'form-control', prompt: 'Market Type'%>
     </div>
     <div class='col-md-2'>
       <div class="input-group date">
@@ -49,18 +48,6 @@
   <%= fields_for :scenarios, s,  child_index: s.object_id  do |scenario| %>
     <div id='scenario'>
     <div class="form-group">
-      <label for="market_type"  class='col-md-2 control-label'>Side</label>
-      <div class='col-md-2'>
-        <%= select_tag "scenarios[side]", "<option>BACK</option><option>LAY</option><option>LAY (SP)</option>".html_safe, class: 'form-control'%>
-      </div>
-      <div class='col-md-2'>
-        <div class="input-group">
-          <span class="input-group-addon">$</span>
-          <%= scenario.text_field :size, class: 'form-control', placeholder: 'Size',  'data-bv-notempty' => 'true', 'data-bv-notempty-message' =>  "Size is required" %>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
       <label for="market_type" class='col-md-2 control-label'>Position</label>
       <div class='col-md-2'>
         <%= scenario.text_field :position, class: 'form-control', placeholder: 'Comma Seperated'%>
@@ -68,9 +55,6 @@
       <div class='col-md-2'>
         <%= select_tag "scenarios[range]", "<option>ALL</option><option>TOP 1/2</option><option>TOP 1/3</option><option>BOTTOM 1/2</option><option>BOTTOM 1/3</option>".html_safe, class: 'form-control', prompt: 'OR Range'%>
       </div>
-    </div>
-     <div class="form-group">
-       <label for="min_odds"  class='col-md-2 control-label'>Price</label>
        <div class='col-md-2'>
            <%= scenario.text_field :min_odds, class: 'form-control', placeholder: 'Min odds'%>
        </div>
@@ -80,6 +64,18 @@
          </div>
        </div>
      </div>
+    <div class="form-group">
+      <label for="market_type"  class='col-md-2 control-label'>Bet</label>
+      <div class='col-md-2'>
+        <%= select_tag "scenarios[side]", "<option value='BACK'>BACK</option><option value='LAY'>LAY</option><option value='LAY (SP)'>LAY SP (max liability)</option>".html_safe, class: 'form-control', prompt: 'Bet type'%>
+      </div>
+      <div class='col-md-2'>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <%= scenario.text_field :size, class: 'form-control', placeholder: 'Size',  'data-bv-notempty' => 'true', 'data-bv-notempty-message' =>  "Size is required" %>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
 
