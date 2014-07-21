@@ -33,8 +33,8 @@ class Market < ActiveRecord::Base
     market_ids = open_after_start_time.limit(50).select([:exchange_id, :api_id]).map{|m| "#{m.exchange_id}.#{m.api_id}"}
     closed_markets = ApiNg::MarketBook.new(market_ids).call.select{|m| m.status == 'CLOSED'}
     closed_markets.each do |market|
-      api_id = market.market_id.split('.').last
-      m = Market.find(api_id)
+      exchange_id, api_id = market.market_id.split('.')
+      m = Market.find_by(exchange_id: exchange_id, api_id: api_id)
       m.update_runners(market.runners)
       m.status = market.status
       m.save!
@@ -49,7 +49,7 @@ class Market < ActiveRecord::Base
 
   def update_runners(runners)
     runners.each do |runner|
-      mr = MarketRunner.where(runner: runner.selection_id, market: self).first
+      mr = MarketRunner.find_by(runner: runner.selection_id, market: self)
       mr.status = runner.status
       mr.actual_sp = runner.sp.actual_sp if runner.sp
       mr.save!
