@@ -1,6 +1,4 @@
 class Market < ActiveRecord::Base
-  self.table_name= 'new_markets'
-
   belongs_to :event
   has_many :market_runners
   has_many :runners, through: :market_runners, dependent: :delete_all

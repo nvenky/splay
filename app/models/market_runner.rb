@@ -1,6 +1,4 @@
 class MarketRunner < ActiveRecord::Base
-  self.table_name= 'new_market_runners'
-
   belongs_to :market
   belongs_to :runner
   default_scope { order('actual_sp ASC')}

@@ -47,11 +47,8 @@ ActiveRecord::Schema.define(version: 20140721093712) do
     t.string  "status"
   end
 
-  add_index "market_runners", ["market_id", "runner_id"], name: "index_market_runners_on_market_id_and_runner_id", unique: true, using: :btree
-  add_index "market_runners", ["market_id"], name: "index_market_runners_on_market_id", using: :btree
-  add_index "market_runners", ["runner_id"], name: "index_market_runners_on_runner_id", using: :btree
-
-  create_table "markets", primary_key: "api_id", force: true do |t|
+  create_table "markets", force: true do |t|
+    t.integer  "api_id"
     t.integer  "exchange_id"
     t.string   "betting_type"
     t.datetime "start_time"
@@ -61,15 +58,18 @@ ActiveRecord::Schema.define(version: 20140721093712) do
     t.string   "status",       default: "OPEN"
   end
 
-  create_table "new_market_runners", force: true do |t|
+  create_table "old_market_runners", force: true do |t|
     t.integer "market_id"
     t.integer "runner_id"
     t.decimal "actual_sp"
     t.string  "status"
   end
 
-  create_table "new_markets", force: true do |t|
-    t.integer  "api_id"
+  add_index "old_market_runners", ["market_id", "runner_id"], name: "index_old_market_runners_on_market_id_and_runner_id", unique: true, using: :btree
+  add_index "old_market_runners", ["market_id"], name: "index_old_market_runners_on_market_id", using: :btree
+  add_index "old_market_runners", ["runner_id"], name: "index_old_market_runners_on_runner_id", using: :btree
+
+  create_table "old_markets", primary_key: "api_id", force: true do |t|
     t.integer  "exchange_id"
     t.string   "betting_type"
     t.datetime "start_time"
@@ -112,11 +112,11 @@ ActiveRecord::Schema.define(version: 20140721093712) do
   add_foreign_key "events", "event_types", name: "events_event_type_id_fk", primary_key: "api_id"
   add_foreign_key "events", "venues", name: "events_venue_id_fk"
 
+  add_foreign_key "market_runners", "markets", name: "market_runners_market_id_fk"
+  add_foreign_key "market_runners", "runners", name: "market_runners_runner_id_fk", primary_key: "api_id"
+
   add_foreign_key "markets", "events", name: "markets_event_id_fk", primary_key: "api_id"
 
-  add_foreign_key "new_market_runners", "new_markets", name: "new_market_runners_market_id_fk", column: "market_id"
-  add_foreign_key "new_market_runners", "runners", name: "new_market_runners_runner_id_fk", primary_key: "api_id"
-
-  add_foreign_key "new_markets", "events", name: "new_markets_event_id_fk", primary_key: "api_id"
+  add_foreign_key "old_markets", "events", name: "markets_event_id_fk", primary_key: "api_id"
 
 end
