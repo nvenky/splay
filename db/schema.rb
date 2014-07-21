@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140720212046) do
+ActiveRecord::Schema.define(version: 20140720225115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,24 @@ ActiveRecord::Schema.define(version: 20140720212046) do
   add_index "market_runners", ["runner_id"], name: "index_market_runners_on_runner_id", using: :btree
 
   create_table "markets", primary_key: "api_id", force: true do |t|
+    t.integer  "exchange_id"
+    t.string   "betting_type"
+    t.datetime "start_time"
+    t.string   "name"
+    t.string   "market_type"
+    t.integer  "event_id"
+    t.string   "status",       default: "OPEN"
+  end
+
+  create_table "new_market_runners", force: true do |t|
+    t.integer "market_id"
+    t.integer "runner_id"
+    t.decimal "actual_sp"
+    t.string  "status"
+  end
+
+  create_table "new_markets", force: true do |t|
+    t.integer  "api_id"
     t.integer  "exchange_id"
     t.string   "betting_type"
     t.datetime "start_time"
@@ -81,5 +99,10 @@ ActiveRecord::Schema.define(version: 20140720212046) do
   add_foreign_key "events", "venues", name: "events_venue_id_fk"
 
   add_foreign_key "markets", "events", name: "markets_event_id_fk", primary_key: "api_id"
+
+  add_foreign_key "new_market_runners", "new_markets", name: "new_market_runners_market_id_fk", column: "market_id"
+  add_foreign_key "new_market_runners", "runners", name: "new_market_runners_runner_id_fk", primary_key: "api_id"
+
+  add_foreign_key "new_markets", "events", name: "new_markets_event_id_fk", primary_key: "api_id"
 
 end

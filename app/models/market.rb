@@ -1,5 +1,5 @@
 class Market < ActiveRecord::Base
-  self.primary_key = 'api_id'
+  self.table_name= 'new_markets'
 
   belongs_to :event
   has_many :market_runners
