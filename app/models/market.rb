@@ -49,7 +49,7 @@ class Market < ActiveRecord::Base
 
   def update_runners(runners)
     runners.each do |runner|
-      mr = MarketRunner.find_by(runner: runner.selection_id, market: self)
+      mr = MarketRunner.joins(:runner).where(['runners.api_id = ? and market_id = ?', runner.selection_id, self.id]).first
       mr.status = runner.status
       mr.actual_sp = runner.sp.actual_sp if runner.sp
       mr.save!
