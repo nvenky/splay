@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140721213428) do
+ActiveRecord::Schema.define(version: 20140721225620) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,13 @@ ActiveRecord::Schema.define(version: 20140721213428) do
     t.string   "status",       default: "OPEN"
   end
 
+  create_table "old2_market_runners", force: true do |t|
+    t.integer "market_id"
+    t.integer "runner_id"
+    t.decimal "actual_sp"
+    t.string  "status"
+  end
+
   create_table "old_market_runners", force: true do |t|
     t.integer "market_id"
     t.integer "runner_id"
@@ -91,8 +98,14 @@ ActiveRecord::Schema.define(version: 20140721213428) do
     t.string   "status",       default: "OPEN"
   end
 
-  create_table "runners", primary_key: "api_id", force: true do |t|
+  create_table "old_runners", primary_key: "api_id", force: true do |t|
     t.string "name"
+  end
+
+  create_table "runners", force: true do |t|
+    t.integer "api_id"
+    t.integer "exchange_id"
+    t.string  "name"
   end
 
   create_table "users", force: true do |t|
@@ -127,9 +140,12 @@ ActiveRecord::Schema.define(version: 20140721213428) do
   add_foreign_key "events", "venues", name: "events_venue_id_fk"
 
   add_foreign_key "market_runners", "markets", name: "market_runners_market_id_fk"
-  add_foreign_key "market_runners", "runners", name: "market_runners_runner_id_fk", primary_key: "api_id"
+  add_foreign_key "market_runners", "runners", name: "market_runners_runner_id_fk"
 
   add_foreign_key "markets", "events", name: "markets_event_id_fk", primary_key: "api_id"
+
+  add_foreign_key "old2_market_runners", "markets", name: "market_runners_market_id_fk"
+  add_foreign_key "old2_market_runners", "old_runners", name: "market_runners_runner_id_fk", column: "runner_id", primary_key: "api_id"
 
   add_foreign_key "old_markets", "events", name: "markets_event_id_fk", primary_key: "api_id"
 
