@@ -18,7 +18,7 @@
       <%= select_tag "event_type_id", options_from_collection_for_select(@event_types, 'id', 'name'), class: 'form-control', prompt: 'Event Type'%>
     </div>
     <div class='col-md-2'>
-      <%= select_tag "market_type", "<option>WIN</option><option>PLACE</option><option value=''>BOTH</option>".html_safe, class: 'form-control', prompt: 'Market Type'%>
+      <%= select_tag "market_type", "<option>WIN</option><option>PLACE</option>".html_safe, class: 'form-control', prompt: 'Market Type'%>
     </div>
     <div class='col-md-2'>
       <div class="input-group date">
