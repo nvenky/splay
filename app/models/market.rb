@@ -49,10 +49,12 @@ class Market < ActiveRecord::Base
 
   def update_runners(runners)
     runners.each do |runner|
-      mr = MarketRunner.joins(:runner).where(['runners.api_id = ? and market_id = ?', runner.selection_id, self.id]).first
-      mr.status = runner.status
-      mr.actual_sp = runner.sp.actual_sp if runner.sp
-      mr.save!
+      mr = MarketRunner.joins(:runner).find_by(['runners.api_id = ? and market_id = ?', runner.selection_id, self.id])
+      unless mr.nil?
+        mr.status = runner.status
+        mr.actual_sp = runner.sp.actual_sp if runner.sp
+        mr.save!
+      end
     end
   end
 
@@ -79,7 +81,7 @@ class Market < ActiveRecord::Base
         total += runner.winner? ? runner_winning_amount(scenario, runner.actual_sp) : runner_losing_amount(scenario, runner.actual_sp)
       end
     end
-     total > 0 ? total * ((100 - commission)/100) : total
+    total > 0 ? total * ((100 - commission)/100) : total
   end
 
   def runner_winning_amount(scenario, sp)
