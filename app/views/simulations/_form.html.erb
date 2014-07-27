@@ -15,6 +15,9 @@
   <div class="form-group">
     <label for="event_type" class='col-md-2 control-label'>Market</label>
     <div class='col-md-2'>
+      <%= select_tag "exchange_id", "<option value='2'>AUS</option><option value='1'>UK</option>".html_safe, class: 'form-control', prompt: 'Exchange'%>
+    </div>
+    <div class='col-md-2'>
       <%= select_tag "event_type_id", options_from_collection_for_select(@event_types, 'id', 'name'), class: 'form-control', prompt: 'Event Type'%>
     </div>
     <div class='col-md-2'>

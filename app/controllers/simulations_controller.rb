@@ -36,6 +36,7 @@ class SimulationsController < ApplicationController
     markets = markets.where(['venues.tier = ?', params[:venue_tier]]) unless params[:venue_tier].blank?
     markets = markets.where(['venues.name = ?', params[:venue_name]]) unless params[:venue_name].blank?
     markets = markets.where(['events.event_type_id = ?', params[:event_type_id]]) unless params[:event_type_id].blank?
+    markets = markets.where(['exchange_id = ?', params[:exchange_id]]) unless params[:exchange_id].blank?
     markets = markets.where(['start_time > ?', DateTime.strptime(params[:start_date], "%d/%m/%Y")]) unless params[:start_date].blank?
     markets = markets.market_type(params[:market_type]) unless params[:market_type].blank?
     markets
