@@ -1,9 +1,8 @@
 module ApiNg
-  class MarketCatalogue < ApiNg::JsonRpc
-    include ApiNg::SportsURI
+  class MarketCatalogue < ServiceBase
 
-    def initialize(event_type_ids)
-      super(:aus)
+    def initialize(exchange, event_type_ids)
+      super(exchange)
       @event_type_ids = event_type_ids
     end
 

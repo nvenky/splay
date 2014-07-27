@@ -12,7 +12,7 @@ class Market < ActiveRecord::Base
   def self.load(event_type_id)
     Rails.logger.debug 'LOADING MARKETS'
     event_type = EventType.find(event_type_id)
-    markets = ApiNg::MarketCatalogue.new([event_type_id]).call
+    markets = ApiNg::EndPoint.markets(event_type_id)
     markets.each do |market|
       exchange_id, api_id = market.market_id.split('.')
       m = Market.where(api_id: api_id).first_or_create(
@@ -31,7 +31,7 @@ class Market < ActiveRecord::Base
   def self.update_closed_markets
     Rails.logger.debug 'UPDATING CLOSED MARKETS'
     market_ids = open_after_start_time.limit(50).select([:exchange_id, :api_id]).map{|m| "#{m.exchange_id}.#{m.api_id}"}
-    closed_markets = ApiNg::MarketBook.new(market_ids).call.select{|m| m.status == 'CLOSED'}
+    closed_markets = ApiNg::EndPoint.get_closed_markets(market_ids)
     closed_markets.each do |market|
       exchange_id, api_id = market.market_id.split('.')
       m = Market.find_by(exchange_id: exchange_id, api_id: api_id)

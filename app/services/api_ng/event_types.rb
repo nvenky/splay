@@ -1,6 +1,5 @@
 module ApiNg
-  class EventTypes < ApiNg::JsonRpc
-    include ApiNg::SportsURI
+  class EventTypes < ServiceBase
 
     def method_name
       'listEventTypes'

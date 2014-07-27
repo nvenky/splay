@@ -1,9 +1,8 @@
 module ApiNg
-  class MarketBook < ApiNg::JsonRpc
-    include ApiNg::SportsURI
+  class MarketBook < ServiceBase
 
-    def initialize market_ids
-      super
+    def initialize(exchange, market_ids)
+      super(exchange)
       @market_ids = market_ids
     end
 

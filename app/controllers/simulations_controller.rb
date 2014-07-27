@@ -1,10 +1,6 @@
 class SimulationsController < ApplicationController
   def new
-    @venues = { name: Venue.pluck(:name).sort,
-                territory: venue_unique_values(:territory),
-                venue_class: venue_unique_values(:venue_class),
-                tier: venue_unique_values(:tier)
-    }
+    @venues = Venue.unique_filters
     @event_types = EventType.where("name like '%Racing'")
   end
 

@@ -3,7 +3,7 @@ class EventType < ActiveRecord::Base
   has_many :events, dependent: :delete_all
 
   def self.load
-    event_types = ApiNg::EventTypes.new.call
+    event_types = ApiNg::EndPoint.event_types
     event_types.each do |event_type_hash|
       e = EventType.where(api_id: event_type_hash[:eventType][:id].to_i).first_or_create
       e.name = event_type_hash[:eventType][:name]
