@@ -26,10 +26,10 @@ $(document).ready(function(){
       $('#graph').html(HandlebarsTemplates['simulations/graph'](responseData));
       drawGraph(data);
       $('#summary').html(HandlebarsTemplates['simulations/result_summary'](summary));
-      $('#details').html(HandlebarsTemplates['simulations/market_details_table'](responseData));
+      //$('#details').html(HandlebarsTemplates['simulations/market_details_table'](responseData));
     } else{
       $('#summary').html(HandlebarsTemplates['simulations/no_results']());
-      $('#details').html('');
+      //$('#details').html('');
       $('#graph').html('');
     }
   }).on('ajax:error',function(xhr, status, error){

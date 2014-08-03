@@ -20,8 +20,7 @@ class SimulationsController < ApplicationController
         total += amount
         winnings_series << amount.round(2).to_f
         summary_series << total.round(2).to_f
-        market_details << market_detail(market, amount.round(2).to_f)
-
+        #market_details << market_detail(market, amount.round(2).to_f)
       end
     end
     render json: {chart_data: [winnings_series, summary_series], market_details: market_details}
