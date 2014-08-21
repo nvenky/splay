@@ -9,6 +9,12 @@ class Market < ActiveRecord::Base
 
   default_scope { order('start_time ASC')}
 
+
+  def as_json(options={})
+    super options.merge({include: { event: {include: :venue},
+               market_runners: {include: :runner}}})
+  end
+
   def self.load(event_type_id)
     Rails.logger.debug 'LOADING MARKETS'
     event_type = EventType.find(event_type_id)

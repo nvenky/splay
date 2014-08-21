@@ -33,6 +33,8 @@ gem 'pg'
 gem 'foreigner'
 gem 'rufus-scheduler'
 
+gem 'mongoid'
+
 #Heroku
 gem 'rails_stdout_logging'
 
