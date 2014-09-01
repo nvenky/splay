@@ -1,9 +1,8 @@
 Codeship Status for nvenky/splay (https://codeship.io/projects/d393b7b0-f049-0131-06f7-4eb19103006a/status)](https://codeship.io/projects/27364)
 
-== README
+== README  
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This README would normally document whatever steps are necessary to get the application up and running.
 
 Things you may want to cover:
 
