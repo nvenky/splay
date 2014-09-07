@@ -58,7 +58,7 @@ class Market < ActiveRecord::Base
       mr = MarketRunner.joins(:runner).find_by(['runners.api_id = ? and market_id = ?', runner.selection_id, self.id])
       unless mr.nil?
         mr.status = runner.status
-        mr.actual_sp = runner.sp.actual_sp if runner.sp
+        mr.actual_sp = runner.sp.actual_sp if runner.sp and runner.sp.actual_sp.numeric?
         mr.save!
       end
     end
