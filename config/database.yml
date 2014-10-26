@@ -5,7 +5,7 @@
 #   gem 'sqlite3'
 development:
   adapter: postgresql
-  database: betfair_development
+  database: betfair_prod
   pool: 5
   timeout: 5000
 
