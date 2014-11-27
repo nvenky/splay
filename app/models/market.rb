@@ -9,10 +9,15 @@ class Market < ActiveRecord::Base
 
   default_scope { order('start_time ASC')}
 
+  alias_method :market_id, :id
 
   def as_json(options={})
-    super options.merge({include: { event: {include: :venue},
-               market_runners: {include: :runner}}})
+    super options.merge({ methods: [:market_id],
+                          except: [:id],
+                         include: {
+                             event: { include: :venue},
+                             market_runners: {include: :runner}
+                         }})
   end
 
   def self.load(event_type_id)

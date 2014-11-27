@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140722212057) do
+ActiveRecord::Schema.define(version: 20140731125720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20140722212057) do
     t.integer "runner_id"
     t.decimal "actual_sp"
     t.string  "status"
+    t.integer "fav_position"
   end
 
   create_table "markets", force: true do |t|
