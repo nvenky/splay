@@ -3,9 +3,12 @@ class Race
    include Mongoid::Attributes::Dynamic
 
    def self.load
-     Market.includes([market_runners: [:runner], event: [:venue, :event_type]]).closed.find_in_batches do |group|
+       existing_markets = Race.pluck(:market_id)
+       grp_count = 0
+       Market.includes([market_runners: [:runner], event: [:venue, :event_type]]).closed.find_in_batches do |group|
+       p "Group - #{grp_count+=1} size - #{group.size}"
        group.each { |market| 
-		   Race.create(market.as_json) unless Race.where(market_id: market.id).exists?
+           Race.create(market.as_json) unless existing_markets.include?(market.id)
        }
      end
    end
