@@ -19,11 +19,11 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 15.minutes do
-  runner "Market.load(7)"
-end
+#every 15.minutes do
+#  runner "Market.load(7)"
+#end
 
 
-every 35.minutes do
-  runner "Race.load"
-end
+#every 35.minutes do
+#  runner "Race.load"
+#end
